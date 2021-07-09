@@ -31,6 +31,7 @@ features that make it literally the best terminal emulator ever:
 + Boxdraw
 + Ligatures
 + font2
++ anysize
 + updated to latest version 0.8.4
 
 ## Installation for newbs
