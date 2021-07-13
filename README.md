@@ -1,99 +1,103 @@
-# Luke's build of st - the simple (suckless) terminal
+# st (Simple Terminal)
 
-The [suckless terminal (st)](https://st.suckless.org/) with some additional
-features that make it literally the best terminal emulator ever:
+Avimitin's simple terminal build.
 
-## Unique features (using dmenu)
+## Screenshot
 
-+ **follow urls** by pressing `alt-l`
-+ **copy urls** in the same way with `alt-y`
-+ **copy the output of commands** with `alt-o`
+![Screenshot](./st-screenshot.png)
 
-## Bindings for
+## Patches :
 
-+ **scrollback** with `alt-↑/↓` or `alt-pageup/down` or `shift` while scrolling the
-  mouse.
-+ OR **vim-bindings**: scroll up/down in history with `alt-k` and `alt-j`.
-  Faster with `alt-u`/`alt-d`.
-+ **zoom/change font size**: same bindings as above, but holding down shift as
-  well. `alt-home` returns to default
-+ **copy text** with `alt-c`, **paste** is `alt-v` or `shift-insert`
+- alpha 
+- Ligatures
+- sixel 
+- scrollback
+- Clipboard
+- Alpha(Transparency)
+- Boxdraw
+- w3m
+- font2
+- right click paste
+- st desktop entry
+- newterm
+- anysize
+- anygeometry
+- xresources
+- sync patch ( Better draw timing to reduce flicker/tearing and improve animation smoothness )
+- live reload ( change colors/fonts on the fly )
+  and more...
+  <br>
 
-## Pretty stuff
-
-+ Compatibility with `Xresources` and `pywal` for dynamic colors.
-+ Default Deus colors otherwise.
-+ Transparency/alpha, which is also adjustable from your `Xresources`.
-+ Default font is "FiraCode Nerd Font Mono 18pt"
-
-## Other st patches
-
-+ Boxdraw
-+ Ligatures
-+ font2
-+ anysize
-+ updated to latest version 0.8.4
-
-## Installation for newbs
-
-You should have xlib header files and libharfbuzz build files installed.
+## How to apply Xresources and live-reload ?
 
 ```
-git clone https://github.com/LukeSmithxyz/st
-cd st
-sudo make install
+#make an alias for this command
+
+alias load="kill -USR1 $(pidof st)"
+alias use="xrdb merge"
+
+command : use Xresourcesfile && load
 ```
 
-Obviously, `make` is required to build. `fontconfig` is required for the
-default build, since it asks `fontconfig` for your system monospace font. It
-might be obvious, but `libX11` and `libXft` are required as well. Chances are,
-you have all of this installed already.
+## Dependencies : <br>
 
-On OpenBSD, be sure to edit `config.mk` first and remove `-lrt` from the
-`$LIBS` before compiling.
-
-Be sure to have a composite manager (`xcompmgr`, `picom`, etc.) running if you
-want transparency.
-
-## How to configure dynamically with Xresources
-
-For many key variables, this build of `st` will look for X settings set in
-either `~/.Xdefaults` or `~/.Xresources`. You must run `xrdb` on one of these
-files to load the settings.
-
-For example, you can define your desired fonts, transparency or colors:
 
 ```
-*.font:	Liberation Mono:pixelsize=12:antialias=true:autohint=true;
-*.alpha: 0.9
-*.color0: #111
-...
+#void (most of these are already installed on arch distros)
+xbps-install libXft-devel libX11-devel harfbuzz-devel libXext-devel libXrender-devel libXinerama-devel
+ 
+
+#Debian (and ubuntu probably)
+apt install build-essential libxft-dev libharfbuzz-dev 
 ```
 
-The `alpha` value (for transparency) goes from `0` (transparent) to `1`
-(opaque). There is an example `Xdefaults` file in this respository.
+## Install <br>
 
-### Colors
+`cd st (this repo) `<br>
+`sudo make install `<br>
 
-To be clear about the color settings:
+## other ST builds <br>
 
-- This build will use gruvbox colors by default and as a fallback.
-- If there are Xresources colors defined, those will take priority.
-- But if `wal` has run in your session, its colors will take priority.
+1. Default ST (main branch)
+2. Sixel St (sixel branch , with sixel graphics support)
+3. St with vim-browse (vim-browse branch , navigate within like vim)
 
-Note that when you run `wal`, it will negate the transparency of existing windows, but new windows will continue with the previously defined transparency.
+- Use a different st build ( clone its branch)
 
-## Notes on Emojis and Special Characters
+`example: git clone https://github.com/siduck76/st --branch sixel`
 
-If st crashes when viewing emojis, install
-[libxft-bgra](https://aur.archlinux.org/packages/libxft-bgra/) from the AUR.
+## Default Keybindings<br>
 
-Note that some special characters may appear truncated if too wide. You might
-want to manually set your prefered emoji/special character font to a lower size
-in the `config.h` file to avoid this. By default, JoyPixels is used at a
-smaller size than the usual text.
+<pre>
+ctrl + shift + c        Copy  <br>
+ctrl + shift + v        Paste <br>
+alt  + comma            Zoom in <br>
+alt  + .                Zoom out <br>
+alt  + g                Reset Zoom<br>
+alt  + s                Increase Transparency<br>
+alt  + a                Decrease Transparency<br>
+alt  + m                Reset Transparency<br>
+copy anything and right click on the terminal ( will paste the copied thing ) 
+mod + shift + enter    open a new terminal with same cwd ( current working directory )
+alt + k                 scroll down 
+alt + j                 scroll up
+alt + l                 open url
+alt + y                 copy url
+alt + o                 copy command output
+</pre>
 
-## Contact
+you can change all of these in config.h
+<br>
 
-- Luke Smith <luke@lukesmith.xyz>
-- [https://lukesmith.xyz](https://lukesmith.xyz)
+## Themes/Fonts used
+
+- [JetbrainsMono Nerd Font Mono](https://www.nerdfonts.com/font-downloads)
+- [JoyPixels](https://archlinux.org/packages/community/any/ttf-joypixels/)
+- [vim-deus](https://github.com/ajmwagar/vim-deus)
+
+The ST using vim-deus as default color scheme but with darker background: `#1a1b26`
+
+# Credits
+
+- [live-reload](https://github.com/nimaipatel/st) 
+- [anysize/copy...](https://github.com/siduck76/st)
