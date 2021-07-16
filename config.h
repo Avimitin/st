@@ -6,7 +6,7 @@
  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
  */
 static char *font =
-    "Fira Code Nerd Font Mono:pixelsize=18:antialias=true:autohint=true";
+    "Fira Code Nerd Font Mono:pixelsize=22:antialias=true:autohint=true";
 static char *font2[] = {"JoyPixels:pixelsize=15:antialias=true:autohint=true"};
 static int borderpx = 0;
 
@@ -233,7 +233,7 @@ static MouseShortcut mshortcuts[] = {
 
 /* Internal keyboard shortcuts. */
 #define MODKEY Mod1Mask
-#define TERMMOD (Mod4Mask | ShiftMask)
+#define TERMMOD (ControlMask | ShiftMask)
 
 MouseKey mkeys[] = {
     /* button               mask            function        argument */
